@@ -25,24 +25,40 @@ document.addEventListener("DOMContentLoaded", async () => {
     set("amount", booking.total_price);
     set("areaName", area?.name || "N/A");
 
-    if (details.booking_type === "emergency") {
-      set("type", "Emergency Service");
-      set("dateTime", "Immediate Service");
-    } else if (details.booking_type === "package") {
-      set("type", "Package Service");
-    } else {
-      set("type", "Scheduled Booking");
-      const dt = new Date(booking.scheduled_at);
+    if (service) set("serviceName", service.name);
+    if (professional) set("professionalName", professional.name);
+
+    const bookingType = details.booking_type;
+
+    if (bookingType === "emergency") {
+      set("dateTime", "Emergency Service");
+      return;
+    }
+
+    if (bookingType === "package") {
+      set("dateTime", "As per package schedule");
+      return;
+    }
+
+    const date = localStorage.getItem("bookingDate");
+    const time = localStorage.getItem("bookingTime");
+
+    if (date && time) {
+      const dt = new Date(`${date}T${time}:00`);
       set(
         "dateTime",
         dt.toLocaleDateString("en-IN") +
           " at " +
-          dt.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })
+          dt.toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit"
+          })
       );
+    } else {
+      set("dateTime", "Scheduled Booking");
     }
 
-    if (service) set("serviceName", service.name);
-    if (professional) set("professionalName", professional.name);
-
-  } catch (err) {}
+  } catch (err) {
+    console.error(err);
+  }
 });
