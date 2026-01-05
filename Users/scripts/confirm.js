@@ -1,64 +1,50 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const bookingId = localStorage.getItem("bookingId");
-  if (!bookingId) {
-    window.location.href = "../../index.html";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const container = document.getElementById("bookingsList");
+
+  if (!container) return;
+
+  if (!user) {
+    container.innerHTML = "<p>Please login to view your bookings.</p>";
     return;
   }
 
   try {
-    const res = await fetch(`${window.API_BASE}/bookings/${bookingId}`);
-    if (!res.ok) return;
+    const res = await fetch(`${window.API_BASE}/bookings/user/${user.user_id}`);
+    if (!res.ok) throw new Error();
 
-    const booking = await res.json();
-    const details = booking.details ? JSON.parse(booking.details) : {};
+    const bookings = await res.json();
+    container.innerHTML = "";
 
-    const area = JSON.parse(localStorage.getItem("selectedArea"));
-    const service = JSON.parse(localStorage.getItem("selectedService"));
-    const professional = JSON.parse(localStorage.getItem("selectedProfessional"));
-
-    const set = (id, value) => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    };
-
-    set("bookingId", `HS${booking.booking_id}`);
-    set("amount", booking.total_price);
-    set("areaName", area?.name || "N/A");
-
-    if (service) set("serviceName", service.name);
-    if (professional) set("professionalName", professional.name);
-
-    const bookingType = details.booking_type;
-
-    if (bookingType === "emergency") {
-      set("dateTime", "Emergency Service");
+    if (bookings.length === 0) {
+      container.innerHTML = "<p>No bookings found.</p>";
       return;
     }
 
-    if (bookingType === "package") {
-      set("dateTime", "As per package schedule");
-      return;
-    }
+    bookings.forEach(b => {
+      const dt = new Date(b.scheduled_at).toLocaleString("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      });
 
-    const date = localStorage.getItem("bookingDate");
-    const time = localStorage.getItem("bookingTime");
+      const card = document.createElement("div");
+      card.className = "booking-card";
 
-    if (date && time) {
-      const dt = new Date(`${date}T${time}:00`);
-      set(
-        "dateTime",
-        dt.toLocaleDateString("en-IN") +
-          " at " +
-          dt.toLocaleTimeString("en-IN", {
-            hour: "2-digit",
-            minute: "2-digit"
-          })
-      );
-    } else {
-      set("dateTime", "Scheduled Booking");
-    }
+      card.innerHTML = `
+        <div class="booking-info">
+          <p><strong>Date & Time:</strong> ${dt}</p>
+          <p><strong>Amount:</strong> ₹${b.total_price}</p>
+          <p><strong>Booking ID:</strong> HS${b.booking_id}</p>
+        </div>
+        <div class="booking-status ${b.status}">
+          Status: ${b.status.toUpperCase()}
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
 
   } catch (err) {
-    console.error(err);
+    container.innerHTML = "<p>Failed to load bookings.</p>";
   }
 });

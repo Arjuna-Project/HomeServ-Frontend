@@ -22,17 +22,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     bookings.forEach(b => {
-      const dt = new Date(b.scheduled_at).toLocaleString("en-IN", {
-        dateStyle: "medium",
-        timeStyle: "short"
-      });
+      const dt = new Date(b.scheduled_at);
+
+      const formattedDateTime =
+        dt.toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          timeZone: "Asia/Kolkata"
+        }) +
+        " at " +
+        dt.toLocaleTimeString("en-IN", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+          timeZone: "Asia/Kolkata"
+        });
 
       const card = document.createElement("div");
       card.className = "booking-card";
 
       card.innerHTML = `
         <div class="booking-info">
-          <p><strong>Date & Time:</strong> ${dt}</p>
+          <p><strong>Date & Time:</strong> ${formattedDateTime}</p>
           <p><strong>Amount:</strong> ₹${b.total_price}</p>
           <p><strong>Booking ID:</strong> HS${b.booking_id}</p>
         </div>
