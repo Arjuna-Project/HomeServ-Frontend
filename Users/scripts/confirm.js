@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // ✅ Scheduled booking (IST – exact user selection)
+    // ✅ Scheduled booking (IST – exact user-selected time)
     const dt = new Date(booking.scheduled_at);
 
     set(
@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (err) {
     console.error(err);
-    alert("Unable to load booking details");
+    document.getElementById("dateTime").textContent =
+      "Unable to load booking details";
   }
 });
