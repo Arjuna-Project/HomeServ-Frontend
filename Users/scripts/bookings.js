@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const date = localStorage.getItem("bookingDate");
       const time = localStorage.getItem("bookingTime");
       if (!date || !time) return;
-      scheduledAt = new Date(`${date}T${time}:00`);
+      scheduledAt = new Date(`${date}T${time}:00+05:30`);
     }
 
     let price = 329;
