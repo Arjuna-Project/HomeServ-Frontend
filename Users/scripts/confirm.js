@@ -1,71 +1,51 @@
-document.addEventListener("DOMContentLoaded", async () => {
-  const bookingId = localStorage.getItem("bookingId");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-  if (!bookingId) {
-    window.location.href = "../../index.html";
-    return;
+  let scheduledAt;
+
+  if (selectedPackage || bookingType === "emergency") {
+    scheduledAt = new Date();
+  } else {
+    const date = localStorage.getItem("bookingDate");
+    const time = localStorage.getItem("bookingTime");
+    if (!date || !time) return;
+
+    // ✅ DO NOT call toISOString()
+    scheduledAt = `${date}T${time}:00`;
   }
 
-  try {
-    const res = await fetch(`${window.API_BASE}/bookings/${bookingId}`);
-    if (!res.ok) throw new Error("Failed to fetch booking");
+  let price = 329;
+  if (bookingType === "emergency") price = 494;
+  if (selectedPackage) price = selectedPackage.price;
 
-    const booking = await res.json();
-    const details = booking.details ? JSON.parse(booking.details) : {};
+  const payload = {
+    user_id: user.user_id,
+    area_id: area.area_id,
+    scheduled_at: scheduledAt, // ✅ send raw local datetime
+    total_price: price,
+    details: JSON.stringify({
+      booking_type: selectedPackage
+        ? "package"
+        : bookingType === "emergency"
+        ? "emergency"
+        : "scheduled"
+    })
+  };
 
-    const area = JSON.parse(localStorage.getItem("selectedArea"));
-    const service = JSON.parse(localStorage.getItem("selectedService"));
-    const professional = JSON.parse(localStorage.getItem("selectedProfessional"));
-
-    const set = (id, value) => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = value;
-    };
-
-    set("bookingId", `HS${booking.booking_id}`);
-    set("amount", booking.total_price);
-    set("areaName", area?.name || "N/A");
-
-    if (service) set("serviceName", service.name);
-    if (professional) set("professionalName", professional.name);
-
-    const bookingType = details.booking_type;
-
-    // ✅ Emergency booking
-    if (bookingType === "emergency") {
-      set("dateTime", "Emergency Service");
-      return;
-    }
-
-    // ✅ Package booking
-    if (bookingType === "package") {
-      set("dateTime", "As per package schedule");
-      return;
-    }
-
-    // ✅ Scheduled booking (IST – exact user-selected time)
-    const dt = new Date(booking.scheduled_at);
-
-    set(
-      "dateTime",
-      dt.toLocaleDateString("en-IN", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-        timeZone: "Asia/Kolkata"
-      }) +
-        " at " +
-        dt.toLocaleTimeString("en-IN", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-          timeZone: "Asia/Kolkata"
-        })
-    );
-
-  } catch (err) {
-    console.error(err);
-    document.getElementById("dateTime").textContent =
-      "Unable to load booking details";
+  if (selectedPackage) {
+    payload.package_id = selectedPackage.package_id;
+  } else {
+    payload.service_id = service.service_id;
+    payload.professional_id = professional.professional_id;
   }
+
+  const res = await fetch(`${window.API_BASE}/bookings/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await res.json();
+  localStorage.setItem("bookingId", data.booking_id);
+  window.location.href = "../pages/confirm.html";
 });

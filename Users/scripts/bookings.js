@@ -35,12 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
     let scheduledAt;
 
     if (selectedPackage || bookingType === "emergency") {
-      scheduledAt = new Date();
+      scheduledAt = new Date().toISOString();
     } else {
       const date = localStorage.getItem("bookingDate");
       const time = localStorage.getItem("bookingTime");
       if (!date || !time) return;
-      scheduledAt = new Date(`${date}T${time}:00+05:30`);
+
+      // ✅ IST preserved
+      scheduledAt = `${date}T${time}:00+05:30`;
     }
 
     let price = 329;
@@ -50,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const payload = {
       user_id: user.user_id,
       area_id: area.area_id,
-      scheduled_at: scheduledAt.toISOString(),
+      scheduled_at: scheduledAt, // ✅ NO toISOString
       total_price: price,
       details: JSON.stringify({
         booking_type: selectedPackage
@@ -75,12 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(payload)
       });
 
-      if (!res.ok) return;
+      if (!res.ok) throw new Error();
 
       const data = await res.json();
       localStorage.setItem("bookingId", data.booking_id);
       window.location.href = "../pages/confirm.html";
 
-    } catch (err) {}
+    } catch (err) {
+      alert("Booking failed");
+    }
   });
 });
