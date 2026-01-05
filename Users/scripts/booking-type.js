@@ -10,7 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.add("active");
 
       selectedType = card.dataset.type;
+
       localStorage.setItem("bookingType", selectedType);
+
+      localStorage.removeItem("selectedPackage");
+      localStorage.removeItem("packageId");
     });
   });
 
