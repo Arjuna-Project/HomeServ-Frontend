@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async () => {
-
   const user = JSON.parse(localStorage.getItem("user"));
   const list = document.getElementById("packagesList");
 
@@ -10,17 +9,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const res = await fetch(
-      `${API_BASE}/bookings/user/${user.user_id}`
+      `${window.API_BASE}/bookings/user/${user.user_id}`
     );
 
     if (!res.ok) throw new Error("Failed");
 
     const bookings = await res.json();
 
-    const packageBookings = bookings.filter(b => {
-      const d = JSON.parse(b.details);
-      return d.booking_type?.startsWith("package:");
-    });
+    const packageBookings = bookings.filter(
+      b => b.package_id !== null
+    );
 
     list.innerHTML = "";
 
@@ -30,17 +28,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     packageBookings.forEach(b => {
-      const details = JSON.parse(b.details);
-      const packageName = details.booking_type.replace("package:", "");
-
       const card = document.createElement("div");
       card.className = "booking-card";
 
       card.innerHTML = `
         <div class="booking-info">
-          <p><strong>Package:</strong> ${packageName}</p>
-          <p><strong>Amount:</strong> ₹${b.total_price}</p>
           <p><strong>Package ID:</strong> HS${b.booking_id}</p>
+          <p><strong>Amount:</strong> ₹${b.total_price}</p>
+          <p><strong>Scheduled At:</strong> ${new Date(b.scheduled_at).toLocaleString()}</p>
         </div>
 
         <div class="booking-status ${b.status}">
