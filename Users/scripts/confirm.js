@@ -1,51 +1,65 @@
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("confirm.js loaded");
 
-  let scheduledAt;
+  const bookingId = localStorage.getItem("bookingId");
+  console.log("bookingId:", bookingId);
 
-  if (selectedPackage || bookingType === "emergency") {
-    scheduledAt = new Date();
-  } else {
-    const date = localStorage.getItem("bookingDate");
-    const time = localStorage.getItem("bookingTime");
-    if (!date || !time) return;
-
-    // ✅ DO NOT call toISOString()
-    scheduledAt = `${date}T${time}:00`;
+  if (!bookingId) {
+    alert("Booking ID missing");
+    window.location.href = "../../index.html";
+    return;
   }
 
-  let price = 329;
-  if (bookingType === "emergency") price = 494;
-  if (selectedPackage) price = selectedPackage.price;
+  try {
+    const res = await fetch(`${window.API_BASE}/bookings/${bookingId}`);
+    console.log("API status:", res.status);
 
-  const payload = {
-    user_id: user.user_id,
-    area_id: area.area_id,
-    scheduled_at: scheduledAt, // ✅ send raw local datetime
-    total_price: price,
-    details: JSON.stringify({
-      booking_type: selectedPackage
-        ? "package"
-        : bookingType === "emergency"
-        ? "emergency"
-        : "scheduled"
-    })
-  };
+    if (!res.ok) throw new Error("API failed");
 
-  if (selectedPackage) {
-    payload.package_id = selectedPackage.package_id;
-  } else {
-    payload.service_id = service.service_id;
-    payload.professional_id = professional.professional_id;
+    const booking = await res.json();
+    console.log("booking:", booking);
+
+    const details = booking.details ? JSON.parse(booking.details) : {};
+
+    document.getElementById("bookingId").textContent = `HS${booking.booking_id}`;
+    document.getElementById("amount").textContent = booking.total_price;
+
+    const area = JSON.parse(localStorage.getItem("selectedArea"));
+    const service = JSON.parse(localStorage.getItem("selectedService"));
+    const professional = JSON.parse(localStorage.getItem("selectedProfessional"));
+
+    if (area) document.getElementById("areaName").textContent = area.name;
+    if (service) document.getElementById("serviceName").textContent = service.name;
+    if (professional) document.getElementById("professionalName").textContent = professional.name;
+
+    if (details.booking_type === "emergency") {
+      document.getElementById("dateTime").textContent = "Emergency Service";
+      return;
+    }
+
+    if (details.booking_type === "package") {
+      document.getElementById("dateTime").textContent = "As per package schedule";
+      return;
+    }
+
+    const dt = new Date(booking.scheduled_at);
+    document.getElementById("dateTime").textContent =
+      dt.toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        timeZone: "Asia/Kolkata"
+      }) +
+      " at " +
+      dt.toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+        timeZone: "Asia/Kolkata"
+      });
+
+  } catch (err) {
+    console.error(err);
+    alert("Confirm page failed to load data");
   }
-
-  const res = await fetch(`${window.API_BASE}/bookings/`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
-
-  const data = await res.json();
-  localStorage.setItem("bookingId", data.booking_id);
-  window.location.href = "../pages/confirm.html";
 });
