@@ -29,21 +29,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else if (details.booking_type === "package") {
           dateTimeText = "As per package schedule";
         } else if (b.scheduled_at) {
-          const dt = new Date(b.scheduled_at);
-          dateTimeText =
-            dt.toLocaleDateString("en-IN", {
-              day: "numeric",
-              month: "short",
-              year: "numeric",
-              timeZone: "Asia/Kolkata"
-            }) +
-            " at " +
-            dt.toLocaleTimeString("en-IN", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: true,
-              timeZone: "Asia/Kolkata"
-            });
+          const dt = new Date(booking.scheduled_at);
+
+set(
+  "dateTime",
+  dt.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  }) +
+    " at " +
+    dt.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    })
+);
+
         }
       }
 

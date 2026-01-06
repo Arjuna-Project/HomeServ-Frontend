@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const time = localStorage.getItem("bookingTime");
       if (!date || !time) return;
 
-      // ✅ IST preserved
       scheduledAt = `${date}T${time}:00+05:30`;
     }
 
@@ -52,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const payload = {
       user_id: user.user_id,
       area_id: area.area_id,
-      scheduled_at: scheduledAt, // ✅ NO toISOString
+      scheduled_at: scheduledAt, 
       total_price: price,
       details: JSON.stringify({
         booking_type: selectedPackage

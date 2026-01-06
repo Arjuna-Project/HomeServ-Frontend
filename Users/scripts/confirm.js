@@ -43,20 +43,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const dt = new Date(booking.scheduled_at);
-    document.getElementById("dateTime").textContent =
-      dt.toLocaleDateString("en-IN", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-        timeZone: "Asia/Kolkata"
-      }) +
-      " at " +
-      dt.toLocaleTimeString("en-IN", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-        timeZone: "Asia/Kolkata"
-      });
+
+set(
+  "dateTime",
+  dt.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  }) +
+    " at " +
+    dt.toLocaleTimeString("en-IN", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    })
+);
+
 
   } catch (err) {
     console.error(err);
