@@ -2,51 +2,52 @@ document.addEventListener("DOMContentLoaded", async () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const container = document.getElementById("bookingsList");
 
-  if (!user || !container) return;
+  if (!container) return;
+
+  if (!user || !user.user_id) {
+    container.innerHTML = "<p>Please login to view your bookings.</p>";
+    return;
+  }
 
   try {
     const res = await fetch(
       `${window.API_BASE}/bookings/user/${user.user_id}`
     );
-    if (!res.ok) throw new Error();
+
+    if (!res.ok) throw new Error("API failed");
 
     const bookings = await res.json();
-    container.innerHTML = "";
 
-    if (!bookings.length) {
-      container.innerHTML = "<p>No bookings found</p>";
+    if (!Array.isArray(bookings) || bookings.length === 0) {
+      container.innerHTML = "<p>No bookings found.</p>";
       return;
     }
+
+    container.innerHTML = "";
 
     bookings.forEach(b => {
       let dateTimeText = "N/A";
 
-      if (b.details) {
-        const details = JSON.parse(b.details);
+      const details = b.details ? JSON.parse(b.details) : {};
 
-        if (details.booking_type === "emergency") {
-          dateTimeText = "Emergency Service";
-        } else if (details.booking_type === "package") {
-          dateTimeText = "As per package schedule";
-        } else if (b.scheduled_at) {
-          const dt = new Date(booking.scheduled_at);
-
-set(
-  "dateTime",
-  dt.toLocaleDateString("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric"
-  }) +
-    " at " +
-    dt.toLocaleTimeString("en-IN", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true
-    })
-);
-
-        }
+      if (details.booking_type === "emergency") {
+        dateTimeText = "Emergency Service";
+      } else if (details.booking_type === "package") {
+        dateTimeText = "As per package schedule";
+      } else {
+        const dt = new Date(b.scheduled_at);
+        dateTimeText =
+          dt.toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+          }) +
+          " at " +
+          dt.toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true
+          });
       }
 
       const card = document.createElement("div");
@@ -67,6 +68,7 @@ set(
     });
 
   } catch (err) {
-    container.innerHTML = "<p>Failed to load bookings</p>";
+    console.error(err);
+    container.innerHTML = "<p>Failed to load bookings.</p>";
   }
 });
