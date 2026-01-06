@@ -180,9 +180,6 @@
   .social-btn.facebook:hover { color: #1877f2; }
   .social-btn.twitter:hover  { color: #000000; }
 
-/* ===============================
-   RESPONSIVE – LOGIN PAGE
-================================ */
 
 @media (max-width: 768px) {
   .login-card {

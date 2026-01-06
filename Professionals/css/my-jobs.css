@@ -1,13 +1,11 @@
 @import url("pro-dashboard.css");
 
-/* Jobs grid */
 .jobs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
 
-/* Job card */
 .job-card {
   background: #ffffff;
   padding: 1.5rem;
@@ -29,7 +27,6 @@
   margin-bottom: 0.4rem;
 }
 
-/* Buttons */
 .job-card button {
   margin-top: 1rem;
   padding: 0.7rem 1.2rem;
@@ -45,16 +42,12 @@
   background: #43a047;
 }
 
-/* Completed label */
 .completed-label {
   color: #2e7d32;
   font-weight: 600;
   margin-top: 0.5rem;
 }
 
-/* ---------- RESPONSIVE ---------- */
-
-/* Tablets */
 @media (max-width: 768px) {
   .pro-nav {
     gap: 1rem;
@@ -67,7 +60,6 @@
   }
 }
 
-/* Mobile */
 @media (max-width: 480px) {
   .header-flex {
     flex-direction: column;

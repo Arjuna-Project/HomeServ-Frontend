@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (professional)
       document.getElementById("professionalName").textContent = professional.name;
 
-    // 🔥 BOOKING TYPE HANDLING
     if (details.booking_type === "emergency") {
       document.getElementById("dateTime").textContent = "Emergency Service";
       return;
@@ -45,7 +44,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // ✅ Scheduled booking (UTC → IST auto handled)
     const dt = new Date(booking.scheduled_at);
 
     document.getElementById("dateTime").textContent =
