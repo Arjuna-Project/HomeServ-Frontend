@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Help Support – HomeServ</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/help.css">
+
 </head>
 
 <body class="help-page">
@@ -34,12 +35,14 @@
         <h2>Help Support</h2>
       </div>
 
-      <div class="help-card">
-        <p class="help-label">Ask Your Questions here</p>
-        <div class="search-box">
-          <input type="text" placeholder="Ask Anything" class="search-input">
-          <button type="submit" class="search-btn">
-            <i class="fas fa-arrow-right"></i>
+      <!-- CHAT UI -->
+      <div class="chat-box">
+        <div class="chat-messages" id="chatMessages"></div>
+
+        <div class="chat-input">
+          <input type="text" id="chatInput" placeholder="Ask anything..." />
+          <button id="chatSend">
+            <i class="fas fa-paper-plane"></i>
           </button>
         </div>
       </div>
@@ -51,7 +54,7 @@
       <p>&copy; 2025 HomeServ. All rights reserved.</p>
     </div>
   </footer>
+
   <script src="../scripts/help_support.js"></script>
 </body>
-
 </html>

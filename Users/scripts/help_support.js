@@ -1,43 +1,55 @@
-const input = document.querySelector(".search-input");
-const button = document.querySelector(".search-btn");
+const chatMessages = document.getElementById("chatMessages");
+const chatInput = document.getElementById("chatInput");
+const chatSend = document.getElementById("chatSend");
 
-button.addEventListener("click", sendMessage);
-input.addEventListener("keydown", (e) => {
+chatSend.addEventListener("click", sendMessage);
+chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-async function sendMessage() {
-  const userMessage = input.value.trim();
-  if (!userMessage) return;
+function addMessage(text, sender) {
+  const msg = document.createElement("div");
+  msg.className = `message ${sender}`;
+  msg.innerText = text;
+  chatMessages.appendChild(msg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
 
-  input.value = "Thinking...";
+async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+
+  addMessage(text, "user");
+  chatInput.value = "";
+
+  const typing = document.createElement("div");
+  typing.className = "message bot";
+  typing.innerText = "Typing...";
+  chatMessages.appendChild(typing);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
     const response = await fetch(
       "https://home-serv-backend.vercel.app/api/chat",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          message: userMessage
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
       }
     );
 
     const data = await response.json();
+    typing.remove();
 
     if (!response.ok) {
       throw new Error(data.detail || "Server error");
     }
 
-    alert(data.reply);
+    addMessage(data.reply, "bot");
 
   } catch (error) {
+    typing.remove();
+    addMessage("Sorry, something went wrong. Please try again.", "bot");
     console.error("Chatbot error:", error);
-    alert("Unable to reach chatbot. Please try again.");
   }
-
-  input.value = "";
 }
