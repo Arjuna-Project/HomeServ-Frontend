@@ -26,10 +26,15 @@ async function sendImage() {
 
   addMessage("📷 Image uploaded", "user");
 
-  const typing = document.createElement("div");
-  typing.className = "message bot";
-  typing.innerText = "Analyzing image...";
-  chatMessages.appendChild(typing);
+    const scan = document.createElement("div");
+    scan.className = "scan-overlay";
+    chatMessages.parentElement.appendChild(scan);
+
+    const typing = document.createElement("div");
+    typing.className = "message bot";
+    typing.innerText = "Analyzing image using AI...";
+    chatMessages.appendChild(typing);
+
 
   try {
     const base64 = await toBase64(file);
