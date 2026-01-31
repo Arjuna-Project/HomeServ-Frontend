@@ -1,13 +1,8 @@
 const chatMessages = document.getElementById("chatMessages");
 const imageInput = document.getElementById("imageInput");
-const imageBtn = document.getElementById("imageBtn");
 const uploadCard = document.getElementById("uploadCard");
 
 uploadCard.addEventListener("click", () => {
-  imageInput.click();
-});
-
-imageBtn.addEventListener("click", () => {
   imageInput.click();
 });
 
@@ -29,17 +24,26 @@ async function sendImage() {
   const file = imageInput.files[0];
   if (!file) return;
 
+  const userData = localStorage.getItem("user");
+
+  if (!userData) {
+    addMessage("⚠️ Please login to use DIY Image Assistance.", "bot");
+    return;
+  }
+
+  const user = JSON.parse(userData);
+  const userId = user.id;
+
   addMessage("📷 Image uploaded", "user");
 
-    const scan = document.createElement("div");
-    scan.className = "scan-overlay";
-    chatMessages.parentElement.appendChild(scan);
+  const scan = document.createElement("div");
+  scan.className = "scan-overlay";
+  chatMessages.parentElement.appendChild(scan);
 
-    const typing = document.createElement("div");
-    typing.className = "message bot";
-    typing.innerText = "Analyzing image using AI...";
-    chatMessages.appendChild(typing);
-
+  const typing = document.createElement("div");
+  typing.className = "message bot";
+  typing.innerText = "🔍 Analyzing image using AI...";
+  chatMessages.appendChild(typing);
 
   try {
     const base64 = await toBase64(file);
@@ -49,20 +53,27 @@ async function sendImage() {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: base64 })
+        body: JSON.stringify({
+          user_id: userId,
+          image: base64
+        })
       }
     );
 
     const data = await response.json();
     typing.remove();
+    scan.remove();
 
-    if (!response.ok) throw new Error();
+    if (!response.ok) {
+      throw new Error(data.detail || "AI failed");
+    }
 
     addMessage(data.reply, "bot");
 
   } catch (err) {
     typing.remove();
-    addMessage("Unable to analyze image. Try again.", "bot");
+    scan.remove();
+    addMessage("❌ Unable to analyze image. Please try again.", "bot");
     console.error(err);
   } finally {
     imageInput.value = "";
