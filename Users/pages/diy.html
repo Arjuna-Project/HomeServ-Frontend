@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DIY Assist – HomeServ</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/help.css">
+</head>
+
+<body class="help-page">
+  <header>
+    <div class="container header-inner">
+      <a href="../../index.html" class="logo">HomeServ</a>
+      <nav class="nav-links">
+        <a href="../../index.html">Home</a>
+        <a href="../pages/diy.html">DIY</a>
+        <a href="../pages/profile.html">Profile</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="help-container">
+    <h2 style="text-align:center">DIY Image Assistance</h2>
+
+    <div class="chat-box">
+      <div class="chat-messages" id="chatMessages"></div>
+
+      <div class="chat-input">
+        <button id="imageBtn">
+          <i class="fas fa-camera"></i>
+        </button>
+
+        <input type="file" id="imageInput" accept="image/*" hidden />
+
+        <button id="chatSend">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="../scripts/help_support.js"></script>
+</body>
+</html>
