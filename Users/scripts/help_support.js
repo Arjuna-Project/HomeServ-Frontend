@@ -2,18 +2,27 @@ const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const chatSend = document.getElementById("chatSend");
 const imageInput = document.getElementById("imageInput");
+const imageBtn = document.getElementById("imageBtn");
 
+// Send text when arrow is clicked
 chatSend.addEventListener("click", sendMessage);
+
+// Send text when Enter is pressed
 chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-const imageBtn = document.getElementById("imageBtn");
-
+// Open file picker when camera is clicked
 imageBtn.addEventListener("click", () => {
   imageInput.click();
 });
 
+// ✅ AUTO-UPLOAD IMAGE WHEN SELECTED
+imageInput.addEventListener("change", () => {
+  if (imageInput.files.length > 0) {
+    sendMessage(); // auto send image
+  }
+});
 
 function addMessage(text, sender) {
   const msg = document.createElement("div");
@@ -48,7 +57,7 @@ async function sendMessage() {
 
     if (imageFile) {
       payload.image = await toBase64(imageFile);
-      imageInput.value = ""; // ✅ clear AFTER conversion
+      imageInput.value = ""; // clear AFTER conversion
     } else {
       payload.message = text;
     }
@@ -81,4 +90,13 @@ async function sendMessage() {
     addMessage("Sorry, something went wrong. Please try again.", "bot");
     console.error(error);
   }
+}
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(",")[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
