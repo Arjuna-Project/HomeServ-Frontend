@@ -6,11 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (user) {
     // ✅ Logged in
-    publicLinks.forEach(el => el.style.display = "inline-block");
-    authLinks.forEach(el => el.style.display = "none");
+    publicLinks.forEach(el => el.style.display = "none");
+    authLinks.forEach(el => el.style.display = "inline-flex");
   } else {
     // ❌ Logged out
-    publicLinks.forEach(el => el.style.display = "inline-block");
+    publicLinks.forEach(el => el.style.display = "inline-flex");
     authLinks.forEach(el => el.style.display = "none");
   }
 });
