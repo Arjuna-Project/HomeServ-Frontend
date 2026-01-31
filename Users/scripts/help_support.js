@@ -1,26 +1,15 @@
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const chatSend = document.getElementById("chatSend");
-const imageInput = document.getElementById("imageInput");
-const imageBtn = document.getElementById("imageBtn");
 
-// Send text when arrow is clicked
-chatSend.addEventListener("click", sendMessage);
+// Send on button click
+chatSend.addEventListener("click", sendText);
 
-// Send text when Enter is pressed
+// Send on Enter key
 chatInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendMessage();
-});
-
-// Open file picker when camera is clicked
-imageBtn.addEventListener("click", () => {
-  imageInput.click();
-});
-
-// ✅ AUTO-UPLOAD IMAGE WHEN SELECTED
-imageInput.addEventListener("change", () => {
-  if (imageInput.files.length > 0) {
-    sendMessage(); // auto send image
+  if (e.key === "Enter") {
+    e.preventDefault();
+    sendText();
   }
 });
 
@@ -32,71 +21,38 @@ function addMessage(text, sender) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-async function sendMessage() {
+async function sendText() {
   const text = chatInput.value.trim();
-  const imageFile = imageInput.files[0];
+  if (!text) return;
 
-  if (!text && !imageFile) return;
-
-  if (imageFile) {
-    addMessage("📷 Image uploaded", "user");
-  } else {
-    addMessage(text, "user");
-  }
-
+  addMessage(text, "user");
   chatInput.value = "";
 
   const typing = document.createElement("div");
   typing.className = "message bot";
   typing.innerText = "Typing...";
   chatMessages.appendChild(typing);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
-    const payload = { user_id: 1 };
-
-    if (imageFile) {
-      payload.image = await toBase64(imageFile);
-      imageInput.value = ""; // clear AFTER conversion
-    } else {
-      payload.message = text;
-    }
-
     const response = await fetch(
       "https://home-serv-backend.vercel.app/api/chat",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({ message: text })
       }
     );
 
     const data = await response.json();
     typing.remove();
 
-    if (!response.ok) {
-      throw new Error(data.detail || "Server error");
-    }
+    if (!response.ok) throw new Error();
 
-    if (data.type === "booking") {
-      addMessage(data.reply, "bot");
-      addMessage("✅ Your service has been booked successfully.", "bot");
-    } else {
-      addMessage(data.reply, "bot");
-    }
+    addMessage(data.reply, "bot");
 
-  } catch (error) {
+  } catch (err) {
     typing.remove();
-    addMessage("Sorry, something went wrong. Please try again.", "bot");
-    console.error(error);
+    addMessage("Sorry, something went wrong.", "bot");
+    console.error(err);
   }
-}
-
-function toBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(",")[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 }
