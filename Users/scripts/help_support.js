@@ -8,6 +8,13 @@ chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
+const imageBtn = document.getElementById("imageBtn");
+
+imageBtn.addEventListener("click", () => {
+  imageInput.click();
+});
+
+
 function addMessage(text, sender) {
   const msg = document.createElement("div");
   msg.className = `message ${sender}`;

@@ -1,77 +1,84 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Help Support – HomeServ</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help Support – HomeServ</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/help.css">
-</head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/help.css" />
+  </head>
 
-<body class="help-page">
-  <header>
-    <div class="container header-inner">
-      <a href="../../index.html" class="logo">HomeServ</a>
-      <nav class="nav-links">
-        <a href="../../index.html">Home</a>
-        <a href="../pages/packages.html">Packages</a>
-        <a href="../pages/about_us.html">About Us</a>
-        <a href="../pages/contact.html">Contact</a>
-        <a href="../pages/profile.html">Profile</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="help-container">
-    <div class="container">
-      <div class="section-header">
-        <a href="../pages/profile.html" class="back-link">
-          <i class="fas fa-arrow-left"></i> Back
-        </a>
-        <h2>Help Support</h2>
+  <body class="help-page">
+    <header>
+      <div class="container header-inner">
+        <a href="../../index.html" class="logo">HomeServ</a>
+        <nav class="nav-links">
+          <a href="../../index.html">Home</a>
+          <a href="../pages/packages.html">Packages</a>
+          <a href="../pages/about_us.html">About Us</a>
+          <a href="../pages/contact.html">Contact</a>
+          <a href="../pages/profile.html">Profile</a>
+        </nav>
       </div>
+    </header>
 
-      <!-- CHAT UI -->
-      <div class="chat-box">
-        <div class="chat-messages" id="chatMessages"></div>
+    <main class="help-container">
+      <div class="container">
+        <div class="section-header">
+          <a href="../pages/profile.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back
+          </a>
+          <h2>Help Support</h2>
+        </div>
 
-        <div class="chat-input">
-          <!-- 📷 IMAGE UPLOAD -->
-          <label for="imageInput" title="Upload image">
-            <i class="fas fa-camera"></i>
-          </label>
-          <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            style="display:none"
-          />
+        <!-- CHAT UI -->
+        <div class="chat-box">
+          <div class="chat-messages" id="chatMessages"></div>
 
-          <!-- 💬 TEXT INPUT -->
-          <input
-            type="text"
-            id="chatInput"
-            placeholder="Ask anything or upload an image..."
-          />
+          <div class="chat-input">
+            <!-- 📷 IMAGE UPLOAD -->
+            <button id="imageBtn" title="Upload image" type="button">
+              <i class="fas fa-camera"></i>
+            </button>
 
-          <!-- SEND BUTTON -->
-          <button id="chatSend">
-            <i class="fas fa-paper-plane"></i>
-          </button>
+            <input
+              type="file"
+              id="imageInput"
+              accept="image/*"
+              style="display: none"
+            />
+
+            <!-- 💬 TEXT INPUT -->
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Ask anything or upload an image..."
+            />
+
+            <!-- SEND BUTTON -->
+            <button id="chatSend">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 HomeServ. All rights reserved.</p>
-    </div>
-  </footer>
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 HomeServ. All rights reserved.</p>
+      </div>
+    </footer>
 
-  <script src="../scripts/help_support.js"></script>
-</body>
+    <script src="../scripts/help_support.js"></script>
+  </body>
 </html>
