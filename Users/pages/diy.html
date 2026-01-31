@@ -31,34 +31,39 @@
       </nav>
     </div>
   </header>
+<main class="diy-container">
+  <div class="diy-chat">
 
-  <!-- DIY CHATBOT -->
-  <main class="diy-container">
-    <div class="diy-chat">
+    <!-- HEADER -->
+    <div class="diy-chat-header">
+      DIY Image Assistance using AI
+    </div>
 
-      <div class="diy-chat-header">
-        DIY Image Assistance using AI
-      </div>
-      <div class="diy-chat-messages-wrapper" style="position:relative">
-      <div class="diy-chat-messages" id="chatMessages"></div>
-
-      <div class="diy-chat-input">
-        <!-- IMAGE BUTTON -->
-        <button class="diy-image-btn" id="imageBtn" title="Upload image">
-          <i class="fas fa-camera"></i>
-        </button>
-
-        <!-- FILE INPUT -->
-        <input type="file" id="imageInput" accept="image/*">
-
-        <!-- SEND BUTTON (optional, kept for UI symmetry) -->
-        <button class="diy-send-btn" disabled>
-          <i class="fas fa-paper-plane"></i>
-        </button>
-      </div>
+    <!-- MESSAGE AREA + SCAN OVERLAY -->
+    <div class="diy-chat-messages-wrapper" style="position: relative;">
+      <div class="diy-chat-messages" id="chatMessages">
+        <div class="message bot">
+          Upload an image of the issue and I’ll guide you with safe DIY steps.
+        </div>
       </div>
     </div>
-  </main>
+
+    <!-- INPUT BAR (⬅ MUST BE OUTSIDE WRAPPER) -->
+    <div class="diy-chat-input">
+      <button class="diy-image-btn" id="imageBtn" title="Upload image">
+        <i class="fas fa-camera"></i>
+      </button>
+
+      <input type="file" id="imageInput" accept="image/*">
+
+      <button class="diy-send-btn" disabled>
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+
+  </div>
+</main>
+
 
   <!-- FOOTER (UNIVERSAL) -->
   <footer>

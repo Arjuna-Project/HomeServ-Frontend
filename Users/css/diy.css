@@ -139,6 +139,12 @@
   border-radius: 6px;
 }
 
+.diy-chat-messages-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+
 /* AI SCANNING OVERLAY */
 .scan-overlay {
   position: absolute;
