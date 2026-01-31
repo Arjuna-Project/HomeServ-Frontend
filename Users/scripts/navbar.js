@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logoutBtn");
 
   if (user) {
-    publicLinks.forEach(el => el.style.display = "none");
+    publicLinks.forEach(el => el.style.display = "inline-flex");
     authLinks.forEach(el => el.style.display = "inline-flex");
   } else {
     publicLinks.forEach(el => el.style.display = "inline-flex");
