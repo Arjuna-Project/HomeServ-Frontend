@@ -129,7 +129,25 @@
       <p>&copy; 2025 HomeServ. All rights reserved.</p>
     </div>
   </footer>
-<script src="../scripts/navbar.js"></script>
+<script>
+  (function () {
+    const user = localStorage.getItem("user");
+
+    const publicLinks = document.querySelectorAll(".nav-public");
+    const authLinks = document.querySelectorAll(".nav-auth");
+
+    console.log("Navbar script running. User =", user);
+
+    if (user) {
+      authLinks.forEach(el => el.style.display = "inline-flex");
+      publicLinks.forEach(el => el.style.display = "inline-flex");
+    } else {
+      authLinks.forEach(el => el.style.display = "none");
+      publicLinks.forEach(el => el.style.display = "inline-flex");
+    }
+  })();
+</script>
+
 </body>
 
 </html>
