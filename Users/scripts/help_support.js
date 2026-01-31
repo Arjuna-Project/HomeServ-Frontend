@@ -27,10 +27,8 @@ async function sendMessage() {
   const text = chatInput.value.trim();
   const imageFile = imageInput.files[0];
 
-  // nothing to send
   if (!text && !imageFile) return;
 
-  // show user message
   if (imageFile) {
     addMessage("📷 Image uploaded", "user");
   } else {
@@ -38,7 +36,6 @@ async function sendMessage() {
   }
 
   chatInput.value = "";
-  imageInput.value = "";
 
   const typing = document.createElement("div");
   typing.className = "message bot";
@@ -51,6 +48,7 @@ async function sendMessage() {
 
     if (imageFile) {
       payload.image = await toBase64(imageFile);
+      imageInput.value = ""; // ✅ clear AFTER conversion
     } else {
       payload.message = text;
     }
@@ -83,13 +81,4 @@ async function sendMessage() {
     addMessage("Sorry, something went wrong. Please try again.", "bot");
     console.error(error);
   }
-}
-
-function toBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(",")[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 }
