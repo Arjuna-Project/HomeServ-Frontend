@@ -14,31 +14,49 @@
   align-items: flex-start;
   padding: 40px 16px;
 }
-
-/* CHAT WRAPPER */
-/* CHAT WRAPPER – reduce height */
 .diy-chat {
   width: 420px;
   max-width: 100%;
-  height: 65vh;              /* ⬅ reduced from 80vh */
-  min-height: 420px;         /* keeps it usable */
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  height: 68vh;
+  min-height: 460px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 22px;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(37, 99, 235, 0.08);
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-
-
-/* HEADER INSIDE CHAT */
 .diy-chat-header {
-  padding: 16px;
-  font-size: 16px;
+  padding: 18px;
+  font-size: 15px;
   font-weight: 600;
   text-align: center;
-  border-bottom: 1px solid #e5e7eb;
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #4f46e5
+  );
+  color: #ffffff;
+  border-bottom: none;
+}
+
+.ai-welcome {
   background: #ffffff;
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  border: 1px dashed #c7d2fe;
+  color: #1e3a8a;
+  font-size: 14px;
+}
+
+.ai-welcome::before {
+  content: "🤖";
+  display: block;
+  font-size: 28px;
+  margin-bottom: 8px;
 }
 
 /* CHAT BODY */
@@ -167,4 +185,16 @@
   100% {
     transform: translateY(100%);
   }
+}
+
+/* PAGE LAYOUT FIX */
+body.diy-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* MAIN CONTENT SHOULD EXPAND */
+.diy-container {
+  flex: 1;
 }
