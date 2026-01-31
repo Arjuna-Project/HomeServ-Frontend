@@ -8,11 +8,6 @@ chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-// ✅ AUTO SEND IMAGE WHEN SELECTED
-imageInput.addEventListener("change", () => {
-  sendMessage();
-});
-
 function addMessage(text, sender) {
   const msg = document.createElement("div");
   msg.className = `message ${sender}`;
@@ -25,8 +20,10 @@ async function sendMessage() {
   const text = chatInput.value.trim();
   const imageFile = imageInput.files[0];
 
+  // nothing to send
   if (!text && !imageFile) return;
 
+  // show user message
   if (imageFile) {
     addMessage("📷 Image uploaded", "user");
   } else {
