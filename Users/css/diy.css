@@ -1,189 +1,141 @@
-/* ================================
-   DIY IMAGE ASSISTANCE – PRO UI
-   ================================ */
-
 :root {
-  --primary: #2563eb;
-  --secondary: #4f46e5;
-  --bg: #f4f6fb;
-  --card-bg: rgba(255, 255, 255, 0.85);
-  --border: #e5e7eb;
-  --text-dark: #111827;
-  --text-muted: #6b7280;
+  --primary: #6366f1;
+  --primary-glow: rgba(99, 102, 241, 0.3);
+  --accent: #06b6d4;
+  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --glass: rgba(255, 255, 255, 0.9);
+  --text-main: #1e293b;
+  --text-muted: #64748b;
 }
 
-/* PAGE */
 .diy-page {
+  background: var(--bg-gradient);
+  background-attachment: fixed;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background:
-    radial-gradient(circle at top, #e0e7ff, transparent 40%),
-    var(--bg);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* MAIN */
 .diy-container {
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 16px;
+  padding: 60px 20px;
 }
 
-/* MAIN CARD */
+/* HIGH-END GLASS CARD */
 .diy-card {
-  width: 420px;
-  max-width: 100%;
-  border-radius: 24px;
-  background: var(--card-bg);
-  backdrop-filter: blur(16px);
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  width: 100%;
+  max-width: 550px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   overflow: hidden;
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* HEADER */
+/* HEADER WITH GRADIENT TEXT */
 .diy-header {
-  padding: 18px 16px;
+  padding: 30px 20px 10px;
   text-align: center;
-  font-weight: 600;
-  font-size: 15px;
-  color: #fff;
-  background: linear-gradient(
-    135deg,
-    var(--primary),
-    var(--secondary)
-  );
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* SCANNER AREA */
+/* INTERACTIVE SCANNER AREA */
 .scanner-area {
-  padding: 28px 20px;
+  margin: 30px;
+  padding: 40px 20px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 24px;
   text-align: center;
-  cursor: pointer;
-  transition: background 0.25s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: rgba(248, 250, 252, 0.5);
 }
 
 .scanner-area:hover {
-  background: rgba(79, 70, 229, 0.04);
+  border-color: var(--primary);
+  background: white;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px var(--primary-glow);
 }
 
-/* SCANNER BOX */
+/* THE FLOATING ICON BOX */
 .scanner-box {
-  width: 160px;
-  height: 160px;
-  margin: 0 auto 16px;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  background: white;
   border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   position: relative;
-  background:
-    linear-gradient(180deg, #eef2ff, #ffffff);
-  border: 1px dashed #c7d2fe;
   overflow: hidden;
 }
 
-/* SCANNER GRID */
+.scanner-box i {
+  font-size: 2.5rem;
+  color: var(--primary);
+  z-index: 2;
+}
+
+/* THE LASER SCAN EFFECT */
 .scanner-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-image:
-    linear-gradient(#c7d2fe 1px, transparent 1px),
-    linear-gradient(90deg, #c7d2fe 1px, transparent 1px);
-  background-size: 20px 20px;
-  animation: scanMove 2.2s linear infinite;
-  opacity: 0.8;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    var(--primary) 50%, 
+    transparent 100%);
+  opacity: 0.2;
+  height: 30%;
+  animation: scanMove 2.5s infinite linear;
+}
+
+/* DYNAMIC RESULTS */
+.diy-results {
+  padding: 0 30px 30px;
+}
+
+.ai-step {
+  background: white;
+  padding: 15px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  border-left: 5px solid var(--primary);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+/* ANIMATIONS */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scanMove {
-  from { transform: translateY(-20px); }
-  to { transform: translateY(20px); }
-}
-
-/* SCANNER TEXT */
-.scanner-area h3 {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 6px;
-  color: var(--text-dark);
-}
-
-.scanner-area p {
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* RESULTS AREA */
-.diy-results {
-  padding: 18px;
-  border-top: 1px solid var(--border);
-}
-
-/* RESULT CARD */
-.result-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 14px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-  animation: fadeUp 0.35s ease;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* RESULT HEADINGS */
-.result-card h4 {
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: var(--primary);
-}
-
-/* LISTS */
-.result-card ul,
-.result-card ol {
-  padding-left: 18px;
-  font-size: 13.5px;
-  color: #1f2937;
-}
-
-.result-card li {
-  margin-bottom: 8px;
-}
-
-/* SCAN OVERLAY */
-.scan-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(37, 99, 235, 0.18) 50%,
-    transparent 100%
-  );
-  animation: scanPulse 1.6s infinite ease-in-out;
-}
-
-@keyframes scanPulse {
   0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
-}
-/* 
-body.diy-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  100% { transform: translateY(330%); }
 }
 
-.diy-container {
-  flex: 1;
-} */
+@keyframes fadeIn {
+  to { opacity: 1; transform: translateX(10px); }
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 480px) {
+  .diy-card { border-radius: 0; height: 100vh; max-width: 100%; }
+  .diy-container { padding: 0; }
+}
