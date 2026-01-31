@@ -2,43 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DIY Assist – HomeServ</title>
+
+  <!-- UNIVERSAL STYLES -->
   <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/help.css">
+
+  <!-- DIY CHATBOT STYLES -->
+  <link rel="stylesheet" href="../css/diy.css">
+
+  <!-- ICONS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
 </head>
 
-<body class="help-page">
+<body class="diy-page">
+
+  <!-- NAVBAR (UNIVERSAL) -->
   <header>
     <div class="container header-inner">
       <a href="../../index.html" class="logo">HomeServ</a>
       <nav class="nav-links">
         <a href="../../index.html">Home</a>
-        <a href="../pages/diy.html">DIY</a>
+        <a href="../pages/diy.html" class="active">DIY</a>
         <a href="../pages/profile.html">Profile</a>
       </nav>
     </div>
   </header>
 
-  <main class="help-container">
-    <h2 style="text-align:center">DIY Image Assistance</h2>
+  <!-- DIY CHATBOT -->
+  <main class="diy-container">
+    <div class="diy-chat">
 
-    <div class="chat-box">
-      <div class="chat-messages" id="chatMessages"></div>
+      <div class="diy-chat-header">
+        DIY Image Assistance using AI
+      </div>
 
-      <div class="chat-input">
-        <button id="imageBtn">
+      <div class="diy-chat-messages" id="chatMessages"></div>
+
+      <div class="diy-chat-input">
+        <!-- IMAGE BUTTON -->
+        <button class="diy-image-btn" id="imageBtn" title="Upload image">
           <i class="fas fa-camera"></i>
         </button>
 
-        <input type="file" id="imageInput" accept="image/*" hidden />
+        <!-- FILE INPUT -->
+        <input type="file" id="imageInput" accept="image/*">
 
-        <button id="chatSend">
+        <!-- SEND BUTTON (optional, kept for UI symmetry) -->
+        <button class="diy-send-btn" disabled>
           <i class="fas fa-paper-plane"></i>
         </button>
       </div>
+
     </div>
   </main>
 
+  <!-- FOOTER (UNIVERSAL) -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 HomeServ. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- DIY SCRIPT -->
   <script src="../scripts/diy.js"></script>
 </body>
 </html>

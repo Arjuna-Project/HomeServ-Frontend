@@ -1,0 +1,136 @@
+/* ================================
+   DIY PAGE – CHATGPT / GEMINI STYLE
+   ================================ */
+
+.diy-page {
+  background: #f7f9fc;
+  min-height: 100vh;
+}
+
+/* MAIN CONTAINER */
+.diy-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+}
+
+/* CHAT WRAPPER */
+.diy-chat {
+  width: 420px;
+  max-width: 100%;
+  height: 80vh;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* HEADER INSIDE CHAT */
+.diy-chat-header {
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+/* CHAT BODY */
+.diy-chat-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background: #f9fafb;
+}
+
+/* MESSAGE COMMON */
+.message {
+  max-width: 85%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* USER MESSAGE */
+.message.user {
+  background: #2563eb;
+  color: #ffffff;
+  margin-left: auto;
+  border-bottom-right-radius: 6px;
+}
+
+/* BOT MESSAGE */
+.message.bot {
+  background: #ffffff;
+  color: #111827;
+  margin-right: auto;
+  border: 1px solid #e5e7eb;
+  border-bottom-left-radius: 6px;
+}
+
+/* INPUT AREA */
+.diy-chat-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+/* IMAGE BUTTON */
+.diy-image-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diy-image-btn i {
+  font-size: 16px;
+}
+
+/* SEND BUTTON */
+.diy-send-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diy-send-btn i {
+  font-size: 16px;
+}
+
+/* HIDDEN FILE INPUT */
+#imageInput {
+  display: none;
+}
+
+/* SCROLLBAR (OPTIONAL – NICE TOUCH) */
+.diy-chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.diy-chat-messages::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 6px;
+}
