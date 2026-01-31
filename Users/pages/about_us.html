@@ -13,23 +13,28 @@
 
 <body class="about-page">
   <header>
-    <div class="container header-inner">
-      <a href="../../index.html" class="logo">HomeServ</a>
-      <nav class="nav-links" id="navbar">
-        <a href="../../index.html" class="nav-public">Home</a>
-        <a href="../pages/about_us.html" class="nav-public">About Us</a>
-        <a href="../pages/contact.html" class="nav-public">Contact</a>      
+  <div class="container header-inner">
+    <a href="../../index.html" class="logo">HomeServ</a>
 
-        <a href="../pages/diy.html" class="nav-auth nav-diy">DIY</a>
-        <a href="../pages/packages.html" class="nav-auth">Packages</a>
-        <a href="../pages/profile.html" class="nav-auth">Profile</a>      
-      </nav>
-      <div class="user-menu">
-        <a href="../pages/login.html" class="nav-public">Login</a>
-        <a href="../pages/signup.html" class="nav-public" >Signup</a>
-      </div>
+    <nav class="nav-links" id="navbar">
+      <!-- PUBLIC (always visible) -->
+      <a href="../../index.html" class="nav-public">Home</a>
+      <a href="../pages/about_us.html" class="nav-public">About Us</a>
+      <a href="../pages/contact.html" class="nav-public">Contact</a>
+
+      <!-- AUTH ONLY -->
+      <a href="../pages/diy.html" class="nav-auth nav-diy">DIY</a>
+      <a href="../pages/packages.html" class="nav-auth">Packages</a>
+      <a href="../pages/profile.html" class="nav-auth">Profile</a>
+    </nav>
+
+    <div class="user-menu">
+      <a href="../pages/login.html" class="nav-public login-btn">Login</a>
+      <a href="../pages/signup.html" class="nav-public signup-btn">Signup</a>
     </div>
-  </header>
+  </div>
+</header>
+
   <main class="about-container">
     <div class="container">
       <div class="section-header">
@@ -129,25 +134,7 @@
       <p>&copy; 2025 HomeServ. All rights reserved.</p>
     </div>
   </footer>
-<script>
-  (function () {
-    const user = localStorage.getItem("user");
-
-    const publicLinks = document.querySelectorAll(".nav-public");
-    const authLinks = document.querySelectorAll(".nav-auth");
-
-    console.log("Navbar script running. User =", user);
-
-    if (user) {
-      authLinks.forEach(el => el.style.display = "inline-flex");
-      publicLinks.forEach(el => el.style.display = "inline-flex");
-    } else {
-      authLinks.forEach(el => el.style.display = "none");
-      publicLinks.forEach(el => el.style.display = "inline-flex");
-    }
-  })();
-</script>
-
+<script src="../scripts/navbar.js"></script>
 </body>
 
 </html>
