@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (user) {
     // ✅ Logged in
     publicLinks.forEach(el => el.style.display = "inline-block");
-    authLinks.forEach(el => el.style.display = "inline-block");
+    authLinks.forEach(el => el.style.display = "none");
   } else {
     // ❌ Logged out
     publicLinks.forEach(el => el.style.display = "inline-block");
