@@ -7,7 +7,6 @@ uploadCard.addEventListener("click", () => {
   imageInput.click();
 });
 
-
 imageBtn.addEventListener("click", () => {
   imageInput.click();
 });

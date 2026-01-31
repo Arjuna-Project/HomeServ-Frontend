@@ -32,35 +32,29 @@
     </div>
   </header>
 <main class="diy-container">
-  <div class="diy-chat">
+  <div class="diy-card">
 
-    <!-- HEADER -->
-    <div class="diy-chat-header">
+    <div class="diy-header">
       DIY Image Assistance using AI
     </div>
-<!-- MESSAGE AREA -->
-<div class="diy-chat-messages-wrapper">
-  <div class="diy-chat-messages" id="chatMessages">
 
-    <!-- QR / UPLOAD CARD -->
-    <div class="upload-card" id="uploadCard">
-      <div class="qr-box">
-        <i class="fas fa-qrcode"></i>
+    <!-- SCANNER AREA -->
+    <div class="scanner-area" id="uploadCard">
+      <div class="scanner-box">
+        <div class="scanner-grid"></div>
       </div>
-      <p class="upload-text">Click here to upload image</p>
-      <span class="upload-subtext">
-        AI will analyze and suggest safe DIY steps
-      </span>
+
+      <h3>Click here to upload image</h3>
+      <p>AI will analyze and suggest safe DIY steps</p>
     </div>
 
+    <!-- RESULT AREA -->
+    <div class="diy-results" id="chatMessages"></div>
+
+    <input type="file" id="imageInput" accept="image/*" hidden />
+
   </div>
-</div>
-
-<!-- HIDDEN FILE INPUT -->
-<input type="file" id="imageInput" accept="image/*" hidden>
-
 </main>
-
 
   <!-- FOOTER (UNIVERSAL) -->
   <footer>
