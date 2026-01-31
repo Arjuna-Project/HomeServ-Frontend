@@ -12,9 +12,9 @@ imageInput.addEventListener("change", () => {
   }
 });
 
-function addMessage(text, sender) {
+function addMessage(text) {
   const msg = document.createElement("div");
-  msg.className = `message ${sender}`;
+  msg.className = "message";
   msg.innerText = text;
   chatMessages.appendChild(msg);
   chatMessages.scrollTop = chatMessages.scrollHeight;

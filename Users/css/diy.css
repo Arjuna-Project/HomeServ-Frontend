@@ -1,141 +1,111 @@
-:root {
-  --primary: #6366f1;
-  --primary-glow: rgba(99, 102, 241, 0.3);
-  --accent: #06b6d4;
-  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --glass: rgba(255, 255, 255, 0.9);
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-}
+/* ================================
+   DIY AI – FIXED PAGE UI
+   ================================ */
 
 .diy-page {
-  background: var(--bg-gradient);
-  background-attachment: fixed;
-  min-height: 100vh;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f7fb;
 }
 
-.diy-container {
+/* MAIN AREA BETWEEN NAV & FOOTER */
+.diy-page-main {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
+  overflow: hidden; /* ⛔ page never scrolls */
 }
 
-/* HIGH-END GLASS CARD */
-.diy-card {
-  background: var(--glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  width: 100%;
-  max-width: 550px;
-  border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  overflow: hidden;
-  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* HEADER WITH GRADIENT TEXT */
-.diy-header {
-  padding: 30px 20px 10px;
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: 800;
-  background: linear-gradient(to right, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* INTERACTIVE SCANNER AREA */
-.scanner-area {
-  margin: 30px;
-  padding: 40px 20px;
-  border: 2px dashed #cbd5e1;
-  border-radius: 24px;
-  text-align: center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  background: rgba(248, 250, 252, 0.5);
-}
-
-.scanner-area:hover {
-  border-color: var(--primary);
-  background: white;
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px var(--primary-glow);
-}
-
-/* THE FLOATING ICON BOX */
-.scanner-box {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto 20px;
-  background: white;
-  border-radius: 20px;
+/* AI CONTAINER */
+.diy-shell {
+  width: 420px;
+  height: 70vh;
+  max-height: 560px;
+  background: #ffffff;
+  border-radius: 22px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  position: relative;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
   overflow: hidden;
 }
 
-.scanner-box i {
-  font-size: 2.5rem;
-  color: var(--primary);
-  z-index: 2;
+/* HEADER */
+.diy-top {
+  padding: 18px;
+  text-align: center;
+  background: linear-gradient(135deg, #2563eb, #4f46e5);
+  color: #ffffff;
 }
 
-/* THE LASER SCAN EFFECT */
-.scanner-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, 
-    transparent 0%, 
-    var(--primary) 50%, 
-    transparent 100%);
-  opacity: 0.2;
-  height: 30%;
-  animation: scanMove 2.5s infinite linear;
+.diy-top h2 {
+  font-size: 17px;
+  margin-bottom: 4px;
 }
 
-/* DYNAMIC RESULTS */
-.diy-results {
-  padding: 0 30px 30px;
+.diy-top p {
+  font-size: 13px;
+  opacity: 0.9;
 }
 
-.ai-step {
-  background: white;
-  padding: 15px;
-  border-radius: 16px;
+/* SCROLLABLE CONTENT */
+.diy-scroll {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;  /* ✅ ONLY THIS SCROLLS */
+  background: #f9fafb;
+}
+
+/* EMPTY STATE */
+.diy-empty {
+  text-align: center;
+  padding: 40px 16px;
+  color: #6b7280;
+}
+
+.scan-frame {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 16px;
+  border-radius: 18px;
+  border: 2px dashed #c7d2fe;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(37,99,235,0.12),
+      transparent
+    );
+  animation: scan 1.6s infinite linear;
+}
+
+@keyframes scan {
+  from { background-position-y: -140px; }
+  to { background-position-y: 140px; }
+}
+
+/* RESULT MESSAGE */
+.message {
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 14px;
   margin-bottom: 12px;
-  border-left: 5px solid var(--primary);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  animation: fadeIn 0.5s ease forwards;
-  opacity: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.05);
 }
 
-/* ANIMATIONS */
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+/* BOTTOM ACTION */
+.diy-bottom {
+  padding: 14px;
+  text-align: center;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
+  cursor: pointer;
+  font-weight: 600;
+  color: #2563eb;
 }
 
-@keyframes scanMove {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(330%); }
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; transform: translateX(10px); }
-}
-
-/* MOBILE OPTIMIZATION */
-@media (max-width: 480px) {
-  .diy-card { border-radius: 0; height: 100vh; max-width: 100%; }
-  .diy-container { padding: 0; }
+.diy-bottom:hover {
+  background: #eef2ff;
 }

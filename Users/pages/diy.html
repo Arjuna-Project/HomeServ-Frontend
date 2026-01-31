@@ -30,31 +30,36 @@
         <a href="../pages/profile.html">Profile</a>
       </nav>
     </div>
-  </header>
-<main class="diy-container">
-  <div class="diy-card">
+  </header><main class="diy-page-main">
+  <div class="diy-shell">
 
-    <div class="diy-header">
-      DIY Image Assistance using AI
+    <!-- HEADER -->
+    <div class="diy-top">
+      <h2>DIY Image Assistance</h2>
+      <p>Upload an image and get safe AI-guided steps</p>
     </div>
 
-    <!-- SCANNER AREA -->
-    <div class="scanner-area" id="uploadCard">
-      <div class="scanner-box">
-        <div class="scanner-grid"></div>
+    <!-- SCROLLABLE CONTENT -->
+    <div class="diy-scroll" id="chatMessages">
+
+      <!-- INITIAL STATE -->
+      <div class="diy-empty">
+        <div class="scan-frame"></div>
+        <h3>Upload an image</h3>
+        <p>AI will analyze the problem and guide you safely</p>
       </div>
 
-      <h3>Click here to upload image</h3>
-      <p>AI will analyze and suggest safe DIY steps</p>
     </div>
 
-    <!-- RESULT AREA -->
-    <div class="diy-results" id="chatMessages"></div>
+    <!-- FIXED BOTTOM ACTION -->
+    <div class="diy-bottom" id="uploadCard">
+      <span>Click to upload image</span>
+    </div>
 
     <input type="file" id="imageInput" accept="image/*" hidden />
-
   </div>
 </main>
+
 
   <!-- FOOTER (UNIVERSAL) -->
   <footer>
