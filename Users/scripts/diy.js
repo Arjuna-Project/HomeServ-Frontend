@@ -34,7 +34,7 @@ async function sendImage() {
   const user = JSON.parse(userData);
   const userId = user.id;
 
-  addMessage("📷 Image uploaded", "user");
+  addMessage("Image uploaded", "user");
 
   const scan = document.createElement("div");
   scan.className = "scan-overlay";
@@ -42,7 +42,7 @@ async function sendImage() {
 
   const typing = document.createElement("div");
   typing.className = "message bot";
-  typing.innerText = "🔍 Analyzing image using AI...";
+  typing.innerText = "Analyzing image using AI...";
   chatMessages.appendChild(typing);
 
   try {

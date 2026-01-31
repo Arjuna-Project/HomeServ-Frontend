@@ -5,13 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DIY Assist – HomeServ</title>
 
-  <!-- UNIVERSAL STYLES -->
   <link rel="stylesheet" href="../css/styles.css">
 
-  <!-- DIY CHATBOT STYLES -->
   <link rel="stylesheet" href="../css/diy.css">
-
-  <!-- ICONS -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -20,29 +16,28 @@
 
 <body class="diy-page">
 
-  <!-- NAVBAR (UNIVERSAL) -->
   <header>
     <div class="container header-inner">
       <a href="../../index.html" class="logo">HomeServ</a>
       <nav class="nav-links">
         <a href="../../index.html">Home</a>
-        <a href="../pages/diy.html" class="active">DIY</a>
+        <a href="../pages/diy.html">DIY</a>
+        <a href="../pages/packages.html">Packages</a>
+        <a href="../pages/about_us.html">About Us</a>
+        <a href="../pages/contact.html">Contact</a>
         <a href="../pages/profile.html">Profile</a>
       </nav>
     </div>
   </header><main class="diy-page-main">
   <div class="diy-shell">
 
-    <!-- HEADER -->
     <div class="diy-top">
       <h2>DIY Image Assistance</h2>
       <p>Upload an image and get safe AI-guided steps</p>
     </div>
 
-    <!-- SCROLLABLE CONTENT -->
     <div class="diy-scroll" id="chatMessages">
 
-      <!-- INITIAL STATE -->
       <div class="diy-empty">
         <div class="scan-frame"></div>
         <h3>Upload an image</h3>
@@ -50,8 +45,6 @@
       </div>
 
     </div>
-
-    <!-- FIXED BOTTOM ACTION -->
     <div class="diy-bottom" id="uploadCard">
       <span>Click to upload image</span>
     </div>
@@ -60,15 +53,12 @@
   </div>
 </main>
 
-
-  <!-- FOOTER (UNIVERSAL) -->
   <footer>
     <div class="container">
       <p>&copy; 2025 HomeServ. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- DIY SCRIPT -->
   <script src="../scripts/diy.js"></script>
 </body>
 </html>
