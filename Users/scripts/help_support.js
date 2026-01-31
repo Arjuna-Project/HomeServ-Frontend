@@ -8,7 +8,11 @@ chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-// ------------------ ADD MESSAGE ------------------
+// ✅ AUTO SEND IMAGE WHEN SELECTED
+imageInput.addEventListener("change", () => {
+  sendMessage();
+});
+
 function addMessage(text, sender) {
   const msg = document.createElement("div");
   msg.className = `message ${sender}`;
@@ -17,25 +21,21 @@ function addMessage(text, sender) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// ------------------ SEND MESSAGE ------------------
 async function sendMessage() {
   const text = chatInput.value.trim();
-  const imageFile = imageInput?.files[0];
+  const imageFile = imageInput.files[0];
 
-  // nothing to send
   if (!text && !imageFile) return;
 
-  // show user message
-  if (text) {
-    addMessage(text, "user");
-  } else {
+  if (imageFile) {
     addMessage("📷 Image uploaded", "user");
+  } else {
+    addMessage(text, "user");
   }
 
   chatInput.value = "";
-  if (imageInput) imageInput.value = "";
+  imageInput.value = "";
 
-  // typing indicator
   const typing = document.createElement("div");
   typing.className = "message bot";
   typing.innerText = "Typing...";
@@ -43,14 +43,11 @@ async function sendMessage() {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
-    const payload = { user_id: 1 }; // user already logged in (profile)
+    const payload = { user_id: 1 };
 
-    // IMAGE MODE
     if (imageFile) {
       payload.image = await toBase64(imageFile);
-    } 
-    // TEXT MODE
-    else {
+    } else {
       payload.message = text;
     }
 
@@ -70,23 +67,20 @@ async function sendMessage() {
       throw new Error(data.detail || "Server error");
     }
 
-    // ------------------ HANDLE RESPONSE TYPES ------------------
     if (data.type === "booking") {
       addMessage(data.reply, "bot");
       addMessage("✅ Your service has been booked successfully.", "bot");
-    } 
-    else {
+    } else {
       addMessage(data.reply, "bot");
     }
 
   } catch (error) {
     typing.remove();
     addMessage("Sorry, something went wrong. Please try again.", "bot");
-    console.error("Chatbot error:", error);
+    console.error(error);
   }
 }
 
-// ------------------ IMAGE TO BASE64 ------------------
 function toBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
