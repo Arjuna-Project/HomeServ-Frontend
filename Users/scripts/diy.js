@@ -1,6 +1,12 @@
 const chatMessages = document.getElementById("chatMessages");
 const imageInput = document.getElementById("imageInput");
 const imageBtn = document.getElementById("imageBtn");
+const uploadCard = document.getElementById("uploadCard");
+
+uploadCard.addEventListener("click", () => {
+  imageInput.click();
+});
+
 
 imageBtn.addEventListener("click", () => {
   imageInput.click();
