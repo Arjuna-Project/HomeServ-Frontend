@@ -1,55 +1,89 @@
+/* ================================
+   DIY IMAGE ASSISTANCE – PRO UI
+   ================================ */
+
+:root {
+  --primary: #2563eb;
+  --secondary: #4f46e5;
+  --bg: #f4f6fb;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --border: #e5e7eb;
+  --text-dark: #111827;
+  --text-muted: #6b7280;
+}
+
 /* PAGE */
 .diy-page {
-  background: #f5f7fb;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background:
+    radial-gradient(circle at top, #e0e7ff, transparent 40%),
+    var(--bg);
 }
 
-/* CENTER CARD */
+/* MAIN */
 .diy-container {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 40px 16px;
 }
 
 /* MAIN CARD */
 .diy-card {
   width: 420px;
-  background: #ffffff;
-  border-radius: 22px;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+  max-width: 100%;
+  border-radius: 24px;
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
   overflow: hidden;
 }
 
 /* HEADER */
 .diy-header {
-  background: linear-gradient(90deg, #2563eb, #4f46e5);
-  color: #fff;
-  padding: 16px;
+  padding: 18px 16px;
   text-align: center;
   font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary)
+  );
 }
 
 /* SCANNER AREA */
 .scanner-area {
-  padding: 30px 20px;
+  padding: 28px 20px;
   text-align: center;
   cursor: pointer;
+  transition: background 0.25s ease;
 }
 
+.scanner-area:hover {
+  background: rgba(79, 70, 229, 0.04);
+}
+
+/* SCANNER BOX */
 .scanner-box {
   width: 160px;
   height: 160px;
   margin: 0 auto 16px;
-  border-radius: 18px;
-  background: #f1f5ff;
+  border-radius: 20px;
   position: relative;
+  background:
+    linear-gradient(180deg, #eef2ff, #ffffff);
+  border: 1px dashed #c7d2fe;
   overflow: hidden;
 }
 
-/* GRID EFFECT */
+/* SCANNER GRID */
 .scanner-grid {
   width: 100%;
   height: 100%;
@@ -57,46 +91,99 @@
     linear-gradient(#c7d2fe 1px, transparent 1px),
     linear-gradient(90deg, #c7d2fe 1px, transparent 1px);
   background-size: 20px 20px;
-  animation: scan 2s linear infinite;
+  animation: scanMove 2.2s linear infinite;
+  opacity: 0.8;
 }
 
-@keyframes scan {
+@keyframes scanMove {
   from { transform: translateY(-20px); }
   to { transform: translateY(20px); }
 }
 
+/* SCANNER TEXT */
 .scanner-area h3 {
-  margin: 10px 0 4px;
   font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-dark);
 }
 
 .scanner-area p {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
-/* RESULTS */
+/* RESULTS AREA */
 .diy-results {
-  padding: 16px;
+  padding: 18px;
+  border-top: 1px solid var(--border);
 }
 
-/* RESULT CARDS */
+/* RESULT CARD */
 .result-card {
-  background: #f9fafb;
-  border-radius: 14px;
-  padding: 14px;
-  margin-bottom: 12px;
-  border-left: 4px solid #2563eb;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  animation: fadeUp 0.35s ease;
 }
 
-/* PAGE LAYOUT FIX */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESULT HEADINGS */
+.result-card h4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+/* LISTS */
+.result-card ul,
+.result-card ol {
+  padding-left: 18px;
+  font-size: 13.5px;
+  color: #1f2937;
+}
+
+.result-card li {
+  margin-bottom: 8px;
+}
+
+/* SCAN OVERLAY */
+.scan-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(37, 99, 235, 0.18) 50%,
+    transparent 100%
+  );
+  animation: scanPulse 1.6s infinite ease-in-out;
+}
+
+@keyframes scanPulse {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+/* 
 body.diy-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* MAIN CONTENT SHOULD EXPAND */
 .diy-container {
   flex: 1;
-}
+} */
